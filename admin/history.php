@@ -36,8 +36,11 @@ $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : check if privilege is correct here
+if (!user_can('see_history_stats')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
 // |                             template init                             |

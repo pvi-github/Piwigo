@@ -14,7 +14,11 @@ if(!defined("PHPWG_ROOT_PATH"))
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_picture_formats')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 

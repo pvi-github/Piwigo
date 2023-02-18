@@ -11,7 +11,11 @@ define('IN_ADMIN', true);
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_users')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('start', $_REQUEST, false, PATTERN_ID);
 check_input_parameter('length', $_REQUEST, false, PATTERN_ID);

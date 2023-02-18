@@ -29,7 +29,11 @@ $tabsheet->assign();
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_groups')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (!empty($_POST) or isset($_GET['delete']) or isset($_GET['toggle_is_default']))
 {

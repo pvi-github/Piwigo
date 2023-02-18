@@ -73,6 +73,7 @@ function insert_user_comment(&$comm, $key, &$infos)
    );
 
   $infos = array();
+  // PVIACL TODO : find what privilege is involved
   if (!$conf['comments_validation'] or is_admin())
   {
     $comment_action='validate'; //one of validate, moderate, reject
@@ -178,6 +179,7 @@ SELECT COUNT(*) AS user_exists
   }
   $anonymous_id = implode('.', $ip_components);
 
+  // PVIACL TODO : find what privilege is involved
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 and !is_admin())
   { // anti-flood system
     $reference_date = pwg_db_get_flood_period_expression($conf['anti-flood_time']);
@@ -272,6 +274,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 function delete_user_comment($comment_id)
 {
   $user_where_clause = '';
+  // PVIACL TODO : find what privilege is involved can_delete_comments 
   if (!is_admin())
   {
     $user_where_clause = '   AND author_id = \''.$GLOBALS['user']['id'].'\'';
@@ -324,7 +327,7 @@ function update_user_comment($comment, $post_key)
   {
     $comment_action='reject';
   }
-  elseif (!$conf['comments_validation'] or is_admin()) // should the updated comment must be validated
+  elseif (!$conf['comments_validation'] or is_admin()) // should the updated comment must be validated // PVIACL TODO : find what privilege is involved
   {
     $comment_action='validate'; //one of validate, moderate, reject
   }
@@ -360,6 +363,7 @@ function update_user_comment($comment, $post_key)
   if ( $comment_action!='reject' )
   {
     $user_where_clause = '';
+    // PVIACL TODO : find what privilege is involved
     if (!is_admin())
     {
       $user_where_clause = '   AND author_id = \''.

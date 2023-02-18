@@ -257,7 +257,7 @@ function ws_categories_getList($params, &$service)
 
     $join_user = $conf['guest_id'];
   }
-  elseif (is_admin())
+  elseif (is_admin()) // PVIACL TODO : find what privilege is involved : can_access_private_xxx ?
   {
     // in this very specific case, we don't want to hide empty
     // categories. Function calculate_permissions will only return

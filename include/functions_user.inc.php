@@ -438,6 +438,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
 
       // now we update user cache categories
       $user_cache_cats = get_computed_categories($userdata, null);
+      // PVIACL TODO : find what privilege is involved
       if ( !is_admin($userdata['status']) )
       { // for non admins we forbid categories with no image (feature 1053)
         $forbidden_ids = array();
@@ -607,6 +608,7 @@ SELECT cat_id
   $forbidden_array = array_diff($private_array, $authorized_array);
 
   // if user is not an admin, locked categories are forbidden
+  // PVIACL TODO : find what privilege is involved can_use_locked_categories ?
   if (!is_admin($user_status))
   {
     $query = '
@@ -1368,6 +1370,7 @@ function is_a_guest($user_status='')
  */
 function is_classic_user($user_status='')
 {
+  // PVIACL TODO : adapt for backward compat
   return is_autorize_status(ACCESS_CLASSIC, $user_status);
 }
 
@@ -1379,6 +1382,7 @@ function is_classic_user($user_status='')
  */
 function is_admin($user_status='')
 {
+  // PVIACL TODO : adapt for backward compat
   return is_autorize_status(ACCESS_ADMINISTRATOR, $user_status);
 }
 
@@ -1390,6 +1394,7 @@ function is_admin($user_status='')
  */
 function is_webmaster($user_status='')
 {
+  // PVIACL TODO : adapt for backward compat
   return is_autorize_status(ACCESS_WEBMASTER, $user_status);
 }
 
@@ -1414,6 +1419,7 @@ function can_manage_comment($action, $comment_author_id)
     return false;
   }
 
+  // PVIACL TODO : find what privilege is involved can_admin_comments ?
   if (is_admin())
   {
     return true;
@@ -1434,6 +1440,100 @@ function can_manage_comment($action, $comment_author_id)
   }
 
   return false;
+}
+
+/**
+ * PVIACL : New privilege system
+ *
+ */
+
+
+/**
+ * Checks whether the user an or cannot do something
+ *
+ * @param TODO
+ * @return boolean
+ */
+function user_can (
+  $privilege = null,
+  $context = null,
+  $target_id = null,
+  $user_status = null
+  )
+{
+
+  if ( is_null($user_status) ) {
+    $qstatus=get_user_status();
+  } else {
+    $qstatus=$user_status;
+  }
+
+  if ( !is_null($context) ) {
+    $qcontext=$context;
+  } else {
+    $qcontext='global';
+  }
+
+  if(is_null($privilege))
+  {
+    return true;
+  }
+
+  if ( !isset($_GLOBALS['user_can'][$qstatus]))
+  {
+    $_and='';
+
+    $query = 'SELECT * FROM '.STATUS_PRIVILEGE_TABLE.'
+    WHERE';
+	
+    $query .= '
+    '.$_and.' status = \''.$qstatus.'\'';
+      $_and='AND';
+
+    $query .= ';';
+
+    // DEBUG
+    // print($query);
+
+    $keys = query2array($query);
+
+    foreach ( $keys as $key )
+    {
+      if ( $key['target_id'] != "" )
+      {
+        $_GLOBALS['user_can'][$key['status']][$key['privilege']][$key['context']][$key['target_id']]=true;
+      }
+      else
+      {
+        $_GLOBALS['user_can'][$key['status']][$key['privilege']][$key['context']][0]=true;
+      }
+    }
+
+    // DEBUG
+    // print_r($_GLOBALS['user_can']);
+  }
+
+  if (isset($target_id))
+  {
+    if(isset($_GLOBALS['user_can'][$qstatus][$privilege][$qcontext][$target_id]))
+    {
+      //echo "$privilege OK with target id $target_id\n";
+      return true;
+    }
+    //echo "$privilege KO with target id $target_id\n";
+  }
+  else
+  {
+    if(isset($_GLOBALS['user_can'][$qstatus][$privilege][$qcontext][0]))
+    {
+      //echo "$privilege OK without target id\n";
+      return true;
+    }
+    //echo "$privilege KO without target id\n";
+  }
+
+  return false;
+
 }
 
 /**

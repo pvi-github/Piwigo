@@ -72,24 +72,38 @@ jQuery(document).ready(function() {
 		<dt><i class="icon-sitemap"> </i><span>{'Albums'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
     <dd>
       <ul>
+{if isset($U_ALBUMS)}
         <li><a href="{$U_ALBUMS}"><i class="icon-folder-open"></i>{'Manage'|@translate}</a></li>
+{/if}
+{if isset($U_CAT_OPTIONS)}
         <li><a href="{$U_CAT_OPTIONS}"><i class="icon-pencil"></i>{'Properties'|@translate}</a></li>
+{/if}
       </ul>
     </dd>
   </dl>
+{if isset($U_USERS) || isset($U_GROUPS) || isset($U_NOTIFICATION_BY_MAIL) }
   <dl>
 		<dt><i class="icon-users"> </i><span>{'Users'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
       <ul>
+{if isset($U_USERS)}
         <li><a href="{$U_USERS}"><i class="icon-user-add"></i>{'Manage'|@translate}</a></li>
+{/if}
+{if isset($U_GROUPS)}
         <li><a href="{$U_GROUPS}"><i class="icon-group"></i>{'Groups'|@translate}</a></li>
-				<li><a href="{$U_NOTIFICATION_BY_MAIL}"><i class="icon-mail-1"></i>{'Notification'|@translate}</a></li>
+{/if}
+{if isset($U_NOTIFICATION_BY_MAIL)}
+        <li><a href="{$U_NOTIFICATION_BY_MAIL}"><i class="icon-mail-1"></i>{'Notification'|@translate}</a></li>
+{/if}
       </ul>
 		</dd>
   </dl>
+{/if}
+{if isset($U_PLUGINS)}
   <dl>
 		<dt><a href="{$U_PLUGINS}" class="admin-main"><i class="icon-puzzle"> </i><span>{'Plugins'|@translate}&nbsp;</span></a></dt>
   </dl>
+{/if}
   <dl>
 		<dt><i class="icon-wrench"> </i><span>{'Tools'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
 		<dd>
@@ -98,7 +112,9 @@ jQuery(document).ready(function() {
         <li><a href="{$U_CAT_UPDATE}"><i class="icon-exchange"></i>{'Synchronize'|@translate}</a></li>
 {/if}
 				<li><a href="{$U_HISTORY_STAT}"><i class="icon-signal"></i>{'History'|@translate}</a></li>
+{if isset($U_MAINTENANCE)}
 				<li><a href="{$U_MAINTENANCE}"><i class="icon-tools"></i>{'Maintenance'|@translate}</a></li>
+{/if}
 {if isset($U_COMMENTS)}
 				<li><a href="{$U_COMMENTS}"><i class="icon-chat"></i>{'Comments'|@translate}
         {if isset($NB_PENDING_COMMENTS) and $NB_PENDING_COMMENTS > 0}
@@ -111,20 +127,30 @@ jQuery(document).ready(function() {
       </ul>
 		</dd>
   </dl>
+{if isset($U_CONFIG_GENERAL) || isset($U_CONFIG_MENUBAR) || isset($U_CONFIG_THEMES)}
   <dl>
-		<dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
-		<dd>
+    <dt><i class="icon-cog"> </i><span>{'Configuration'|@translate}&nbsp;</span><i class="icon-down-open open-menu"></i></dt>
+    <dd>
       <ul>
+{if isset($U_CONFIG_GENERAL)}
         <li><a href="{$U_CONFIG_GENERAL}"><i class="icon-cog-alt"></i>{'Options'|@translate}</a></li>
+{/if}
+{if isset($U_CONFIG_MENUBAR)}
         <li><a href="{$U_CONFIG_MENUBAR}"><i class="icon-menu"></i>{'Menu Management'|@translate}</a></li>
-        {if {$U_SHOW_TEMPLATE_TAB}}
+{/if}
+{if {$U_SHOW_TEMPLATE_TAB}}
           <li><a href="{$U_CONFIG_EXTENTS}"><i class="icon-code"></i>{'Templates'|@translate}</a></li>
-        {/if}
-				<li><a href="{$U_CONFIG_LANGUAGES}"><i class="icon-language"></i>{'Languages'|@translate}</a></li>
+{/if}
+{if isset($U_CONFIG_LANGUAGES)}
+        <li><a href="{$U_CONFIG_LANGUAGES}"><i class="icon-language"></i>{'Languages'|@translate}</a></li>
+{/if}
+{if isset($U_CONFIG_THEMES)}
         <li><a href="{$U_CONFIG_THEMES}"><i class="icon-brush"></i>{'Themes'|@translate}</a></li>
+{/if}
       </ul>
     </dd>
   </dl>
+{/if}
 </div> <!-- menubar -->
 
 <div id="content" class="content">

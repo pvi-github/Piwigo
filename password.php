@@ -18,6 +18,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 
+// PVIACL TODO : find what privilege is involved : access_free
 check_status(ACCESS_FREE);
 
 trigger_notify('loc_begin_password');

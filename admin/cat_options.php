@@ -17,7 +17,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_cat_options')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (!empty($_POST))
 {

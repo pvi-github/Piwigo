@@ -25,7 +25,11 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('notify_users')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('mode', $_GET, false, '/^(param|subscribe|send)$/');
 

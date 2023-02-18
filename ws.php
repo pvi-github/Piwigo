@@ -10,6 +10,7 @@ define ('PHPWG_ROOT_PATH', './');
 define ('IN_WS', true);
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+// PVIACL TODO : find what privilege is involved : access_free ?
 check_status(ACCESS_FREE);
 
 if ( !$conf['allow_web_services'] )

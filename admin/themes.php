@@ -13,6 +13,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
+// PVIACL DONE
+if (!user_can('manage_themes')) {
+  access_denied();
+}
+
 $my_base_url = get_root_url().'admin.php?page=themes';
 
 if (isset($_GET['tab']))

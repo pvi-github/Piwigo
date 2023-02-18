@@ -7,7 +7,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '13.5.0');
+define('PHPWG_VERSION', '13.6.0');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 
 // this constant is only used in the upgrade process, the true default theme
@@ -107,5 +107,7 @@ if (!defined('ACTIVITY_TABLE'))
   define('ACTIVITY_TABLE', $prefixeTable.'activity');
 if (!defined('LOUNGE_TABLE'))
   define('LOUNGE_TABLE', $prefixeTable.'lounge');
+if (!defined('STATUS_PRIVILEGE_TABLE'))
+  define('STATUS_PRIVILEGE_TABLE', $prefixeTable.'status_privilege');
 
 ?>

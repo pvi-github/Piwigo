@@ -13,6 +13,7 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+// PVIACL TODO : find what privilege is involved : access free
 check_status(ACCESS_FREE);
 
 //----------------------------------------------------------- user registration

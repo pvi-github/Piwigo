@@ -899,6 +899,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
   if ($pre_result)
   {
     $ret = $mail->send();
+    // PVIACL TODO : find what privilege is involved can_see_error_messages ?
     if (!$ret and (!ini_get('display_errors') or is_admin()))
     {
       trigger_error('Mailer Error: ' . $mail->ErrorInfo, E_USER_WARNING);
@@ -917,6 +918,7 @@ function pwg_mail($to, $args=array(), $tpl=array())
  */
 function pwg_send_mail($result, $to, $subject, $content, $headers)
 {
+  // PVIACL TODO : find what privilege is involved can_see_error_messages ?
   if (is_admin())
   {
     trigger_error('pwg_send_mail function is deprecated', E_USER_NOTICE);

@@ -405,6 +405,7 @@ SELECT id, name, permalink, uppercats, global_rank, commentable
   }
   usort($related_categories, 'global_rank_compare');
 
+  // PVIACL TODO : find what privilege is involved : can_get_xxxx_info ?
   if (empty($related_categories) and !is_admin())
   {
     // photo might be in the lounge? or simply orphan. A standard user should not get
@@ -458,6 +459,7 @@ SELECT COUNT(rate) AS count, ROUND(AVG(rate),2) AS average
   $related_comments = array();
 
   $where_comments = 'image_id = '.$image_row['id'];
+  // PVIACL TODO : find what privilege is involved : can see unapproved_comments ?
   if (!is_admin())
   {
     $where_comments .= ' AND validated="true"';
