@@ -368,7 +368,37 @@ function initialize_menu()
     {
       $template->assign('U_LOGOUT', get_root_url().'?act=logout');
     }
-    if (is_admin())
+    // PVIACL TODO : find what privilege is involved : can_access_admin_backend ?
+    //if (is_admin())
+    if(user_can('add_photos')
+      || user_can('manage_albums')
+      || user_can('manage_batch_global')
+      || user_can('manage_batch_unit')
+      || user_can('manage_categories')
+      || user_can('manage_picture_coi')
+      || user_can('manage_picture_formats')
+      || user_can('manage_ratings')
+      || user_can('modify_photo')
+      || user_can('notify_albums')
+      || user_can('rank_images')
+      || user_can('see_history_stats')
+      || user_can('see_user_activity')
+      || user_can('do_maintenance')
+      || user_can('extend_for_templates')
+      || user_can('manage_cat_options')
+      || user_can('manage_cat_perm')
+      || user_can('manage_comments')
+      || user_can('manage_configuration')
+      || user_can('manage_groups')
+      || user_can('manage_menus')
+      || user_can('manage_plugins')
+      || user_can('manage_site')
+      || user_can('manage_sync')
+      || user_can('manage_themes')
+      || user_can('manage_updates')
+      || user_can('manage_users')
+      || user_can('notify_users')
+    )
     {
       $template->assign('U_ADMIN', get_root_url().'admin.php');
     }

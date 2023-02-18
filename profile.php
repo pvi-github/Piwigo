@@ -19,6 +19,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   // +-----------------------------------------------------------------------+
   // | Check Access and exit when user status is not ok                      |
   // +-----------------------------------------------------------------------+
+  // PVIACL TODO : find what privilege is involved : access_classic ?
   check_status(ACCESS_CLASSIC);
 
   if (!empty($_POST))

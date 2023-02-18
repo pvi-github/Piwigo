@@ -71,8 +71,8 @@ class Template
     $this->smarty->debugging = $conf['debug_template'];
     if (!$this->smarty->debugging)
     {
-      $this->smarty->error_reporting = error_reporting() & ~E_NOTICE;
-    }
+      $this->smarty->error_reporting = error_reporting() & ~E_WARNING;
+    } 
     $this->smarty->compile_check = $conf['template_compile_check'];
     $this->smarty->force_compile = $conf['template_force_compile'];
 
@@ -1847,6 +1847,7 @@ final class FileCombiner
   {
     global $conf;
     $force = false;
+    // PVIACL TODO : find what privilege is involved : can_force_xxxx maybe flush ?
     if (is_admin() && ($this->is_css || !$conf['template_compile_check']) )
     {
       $force = (isset($_SERVER['HTTP_CACHE_CONTROL']) && strpos($_SERVER['HTTP_CACHE_CONTROL'], 'max-age=0') !== false)

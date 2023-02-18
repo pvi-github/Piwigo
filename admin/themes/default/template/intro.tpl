@@ -148,7 +148,7 @@ let str_size = "";
 {/if}
 
 {if $NB_COMMENTS > 1}
-<a class="stat-box" href="{$U_COMMENTS}">
+<a class="stat-box" href="{if isset($SU_COMMENTS)}{$U_COMMENTS}i{/if}">
 <i class="icon-chat icon-blue"></i>
 <span class="number">{$NB_COMMENTS}</span><span class="caption">{'Comments'|translate}</span>
 </a>

@@ -21,7 +21,11 @@ if (!$conf['activate_comments'])
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_GUEST);
+// PVIACL DONE
+if (!user_can('access_front')) {
+  access_denied();
+}
+//check_status(ACCESS_GUEST);
 
 $url_self = PHPWG_ROOT_PATH.'comments.php'
   .get_query_string_diff(array('delete','edit','validate','pwg_token'));
@@ -147,6 +151,7 @@ if (!empty($_GET['comment_id']))
 
   // currently, the $_GET['comment_id'] is only used by admins from email
   // for management purpose (validate/delete)
+  // PVIACL TODO : find what privilege is involved : can_validate_comments ?
   if (!is_admin())
   {
     $login_url =
@@ -176,6 +181,7 @@ if (!empty($_GET['keyword']))
 $page['where_clauses'][] = $since_options[$page['since']]['clause'];
 
 // which status to filter on ?
+// PVIACL TODO : find what privilege is involved : can_see_unapproved_messages ?
 if ( !is_admin() )
 {
   $page['where_clauses'][] = 'validated=\'true\'';
@@ -471,6 +477,7 @@ SELECT *
       'CONTENT'=>trigger_change('render_comment_content',$comment['content']),
       );
 
+    // PVIACL TODO : find what privilege is involved : can_see_emails ?
     if (is_admin())
     {
       $tpl_comment['EMAIL'] = $email;

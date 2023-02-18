@@ -22,7 +22,11 @@ if (!$conf['enable_synchronization'])
   die('synchronization is disabled');
 }
 
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_updates')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (!is_numeric($_GET['site']))
 {

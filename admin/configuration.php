@@ -11,6 +11,7 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
+// PVIACL TODO : Adapt this
 if (!is_webmaster())
 {
   $page['warnings'][] = str_replace('%s', l10n('user_status_webmaster'), l10n('%s status is required to edit parameters.'));
@@ -23,7 +24,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_configuration')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 //-------------------------------------------------------- sections definitions
 

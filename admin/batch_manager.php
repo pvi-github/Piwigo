@@ -23,8 +23,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : Check if privilege control is correct
+if (!user_can('manage_batch_global') && !user_can('manage_batch_unit')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('selection', $_POST, true, PATTERN_ID);
 check_input_parameter('display', $_REQUEST, false, '/^(\d+|all)$/');

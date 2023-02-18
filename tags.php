@@ -13,7 +13,11 @@
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
-check_status(ACCESS_GUEST);
+// PVIACL DONE
+if (!user_can('access_front')) {
+  access_denied();
+}
+//check_status(ACCESS_GUEST);
 
 trigger_notify('loc_begin_tags');
 

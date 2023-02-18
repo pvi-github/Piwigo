@@ -512,9 +512,10 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
       return new PwgError(405, 'This method requires HTTP POST');
     }
     
+    // PVIACL TODO : find what privilege is involved
     if ( isset($method['options']['admin_only']) and $method['options']['admin_only'] and !is_admin() )
     {
-      return new PwgError(401, 'Access denied');
+      return new PwgError(401, 'Access denied: '.$methodName);
     }
 
     // parameter check and data correction

@@ -80,7 +80,11 @@ else
 }
 
 // Check the status now after the user has been loaded
-check_status(ACCESS_GUEST);
+// PVIACL DONE
+if (!user_can('access_front')) {
+  access_denied();
+}
+//check_status(ACCESS_GUEST);
 
 list($dbnow) = pwg_db_fetch_row(pwg_query('SELECT NOW();'));
 

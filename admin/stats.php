@@ -220,8 +220,11 @@ ORDER BY
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : check if the privilege here is correct
+if (!user_can('see_history_stats')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
 // | Refresh summary from details                                          |

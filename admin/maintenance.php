@@ -17,8 +17,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/image.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('do_maintenance')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (isset($_GET['action']))
 {

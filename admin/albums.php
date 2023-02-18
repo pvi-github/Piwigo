@@ -23,7 +23,11 @@ list($albums_counter) = pwg_db_fetch_row(pwg_query($query));
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_albums')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (!empty($_POST) or isset($_GET['delete']))
 {
