@@ -14,8 +14,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 // +-----------------------------------------------------------------------+
 // | Basic checks                                                          |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO check if the privilege is correct here
+if (!user_can('add_photos')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('cat_id', $_GET, false, PATTERN_ID);
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);

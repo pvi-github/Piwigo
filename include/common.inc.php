@@ -203,6 +203,7 @@ else
 
 // language files
 load_language('common.lang');
+// PVIACL TODO : find what privilege is involved : can_access_admin_backend ?
 if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
 {
   load_language('admin.lang');
@@ -258,6 +259,7 @@ if ($conf['gallery_locked'])
 {
   $header_msgs[] = l10n('The gallery is locked for maintenance. Please, come back later.');
 
+  // PVIACL TODO : find what privilege is involved !can_bypass_maintenance ?
   if ( script_basename() != 'identification' and !is_admin() )
   {
     set_status_header(503, 'Service Unavailable');

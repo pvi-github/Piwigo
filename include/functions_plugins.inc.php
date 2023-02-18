@@ -61,6 +61,7 @@ class PluginMaintain
    */
   function autoUpdate()
   {
+    // PVIACL TODO : find what privilege is involved
     if (is_admin() && !defined('IN_WS'))
     {
       trigger_error('Function PluginMaintain::autoUpdate deprecated', E_USER_WARNING);

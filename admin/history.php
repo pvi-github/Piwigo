@@ -36,8 +36,11 @@ $display_thumbnails = array('no_display_thumbnail' => l10n('No display'),
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : check if privilege is correct here
+if (!user_can('see_history_stats')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('filter_ip', $_GET, false, '/^[0-9.]+$/');
 check_input_parameter('filter_image_id', $_GET, false, '/^\d+$/');

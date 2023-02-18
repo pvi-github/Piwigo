@@ -16,7 +16,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : check if privilege is correct here
+if (!user_can('manage_categories')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 trigger_notify('loc_begin_cat_list');
 

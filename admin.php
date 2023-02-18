@@ -24,7 +24,40 @@ trigger_notify('loc_begin_admin');
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : check if that is correct
+if(!(user_can('add_photos')
+  || user_can('manage_albums')
+  || user_can('manage_batch_global')
+  || user_can('manage_batch_unit')
+  || user_can('manage_categories')
+  || user_can('manage_picture_coi')
+  || user_can('manage_picture_formats')
+  || user_can('manage_ratings')
+  || user_can('modify_photo')
+  || user_can('notify_albums')
+  || user_can('rank_images')
+  || user_can('see_history_stats')
+  || user_can('see_user_activity')
+  || user_can('do_maintenance')
+  || user_can('extend_for_templates')
+  || user_can('manage_cat_options')
+  || user_can('manage_cat_perm')
+  || user_can('manage_comments')
+  || user_can('manage_configuration')
+  || user_can('manage_groups')
+  || user_can('manage_menus')
+  || user_can('manage_plugins')
+  || user_can('manage_site')
+  || user_can('manage_sync')
+  || user_can('manage_themes')
+  || user_can('manage_updates')
+  || user_can('manage_users')
+  || user_can('notify_users'))
+)
+{
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 check_input_parameter('page', $_GET, false, '/^[a-zA-Z\d_-]+$/');
 check_input_parameter('section', $_GET, false, '/^[a-z]+[a-z_\/-]*(\.php)?$/i');
@@ -195,54 +228,83 @@ $page['body_id'] = 'theAdminPage';
 
 $template->set_filenames(array('admin' => 'admin.tpl'));
 
-$template->assign(
-  array(
+$menu_links= array(
     'USERNAME' => $user['username'],
-    'ENABLE_SYNCHRONIZATION' => $conf['enable_synchronization'],
     'U_SITE_MANAGER'=> $link_start.'site_manager',
-    'U_HISTORY_STAT'=> $link_start.'stats&amp;year='.date('Y').'&amp;month='.date('n'),
     'U_FAQ'=> $link_start.'help',
     'U_SITES'=> $link_start.'remote_site',
-    'U_MAINTENANCE'=> $link_start.'maintenance',
-    'U_NOTIFICATION_BY_MAIL'=> $link_start.'notification_by_mail',
-    'U_CONFIG_GENERAL'=> $link_start.'configuration',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',
-    'U_CONFIG_MENUBAR'=> $link_start.'menubar',
     'U_CONFIG_LANGUAGES' => $link_start.'languages',
-    'U_CONFIG_THEMES'=> $link_start.'themes',
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_ALBUMS'=> $link_start.'albums',
-    'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_SEARCH'=> $link_start.'cat_search',
-    'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_RATING'=> $link_start.'rating',
     'U_RECENT_SET'=> $link_start.'batch_manager&amp;filter=prefilter-last_import',
     'U_BATCH'=> $link_start.'batch_manager',
     'U_TAGS'=> $link_start.'tags',
-    'U_USERS'=> $link_start.'user_list',
-    'U_GROUPS'=> $link_start.'group_list',
     'U_RETURN'=> get_gallery_home_url(),
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
     'U_LOGOUT'=> PHPWG_ROOT_PATH.'index.php?act=logout',
-    'U_PLUGINS'=> $link_start.'plugins',
     'U_ADD_PHOTOS' => $link_start.'photos_add',
     'U_CHANGE_THEME' => $change_theme_url,
     'ADMIN_PAGE_TITLE' => 'Piwigo Administration Page',
     'ADMIN_PAGE_OBJECT_ID' => '',
     'U_SHOW_TEMPLATE_TAB' => $conf['show_template_in_side_menu'],
     'SHOW_RATING' => $conf['rate'],
-    )
   );
 
+if (user_can('manage_sync'))
+  $menu_links['ENABLE_SYNCHRONIZATION'] = $conf['enable_synchronization'];
+
+if (user_can('manage_cat_options'))
+  $menu_links['U_CAT_OPTIONS'] = $link_start.'cat_options';
+
+if (user_can('manage_users'))
+  $menu_links['U_USERS'] = $link_start.'user_list';
+
+if (user_can('manage_groups'))
+  $menu_links['U_GROUPS'] = $link_start.'group_list';
+
+if (user_can('notify_users'))
+  $menu_links['U_NOTIFICATION_BY_MAIL'] = $link_start.'notification_by_mail';
+
+if (user_can('manage_plugins'))
+  $menu_links['U_PLUGINS'] = $link_start.'plugins';
+
+if (user_can('manage_configuration'))
+  $menu_links['U_CONFIG_GENERAL'] = $link_start.'configuration';
+
+if (user_can('manage_themes'))
+  $menu_links['U_CONFIG_THEMES'] = $link_start.'themes';
+
+if (user_can('manage_menus'))
+  $menu_links['U_CONFIG_MENUBAR'] = $link_start.'menubar';
+
+if (user_can('manage_sync'))
+  $menu_links['U_CAT_UPDATE'] = $link_start.'site_update&amp;site=1';
+
+if (user_can('see_history_stats'))
+  $menu_links['U_HISTORY_STAT'] = $link_start.'stats&amp;year='.date('Y').'&amp;month='.date('n');
+
+if (user_can('do_maintenance'))
+  $menu_links['U_MAINTENANCE'] = $link_start.'maintenance';
+
+
+$template->assign($menu_links);
+
+// PVIACL TODO : Rework this
 if ($conf['enable_core_update'])
 {
-  $template->assign('U_UPDATES', $link_start.'updates');
+  if (user_can('manage_updates'))
+    $template->assign('U_UPDATES', $link_start.'updates');
 }
 
+// PVIACL TODO : Rework this
 if ($conf['activate_comments'])
 {
-  $template->assign('U_COMMENTS', $link_start.'comments');
+  if (user_can('manage_comments'))
+    $template->assign('U_COMMENTS', $link_start.'comments');
   
   // pending comments
   $query = '

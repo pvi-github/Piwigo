@@ -70,6 +70,7 @@ elseif ( isset($_POST['content']) )
 
 if ($page['show_comments'])
 {
+  // PVIACL TODO : find what privilege is involved can_see_unapproved_comments ?
   if ( !is_admin() )
   {
     $validated_clause = '  AND validated = \'true\'';
@@ -202,6 +203,7 @@ SELECT
             $tpl_comment['U_CANCEL'] = $url_self;
           }
       }
+      // PVIACL TODO : find what privilege is involved can_see_emails ?
       if (is_admin())
       {
         $tpl_comment['EMAIL'] = $email;

@@ -10,6 +10,7 @@
 // The "No Photo Yet" feature: if you have no photo yet in your gallery, the
 // gallery displays only a big box to show you the way for adding your first
 // photos
+// PVIACL TODO : find what privilege is involved : can_upload_photos ?
 if (
   !(defined('IN_ADMIN') and IN_ADMIN)   // no message inside administration
   and script_basename() != 'identification' // keep the ability to login
@@ -52,6 +53,7 @@ SELECT
     header('Content-Type: text/html; charset='.get_pwg_charset());
     $template->set_filenames(array('no_photo_yet'=>'no_photo_yet.tpl'));
 
+    // PVIACL TODO : find what privilege is involved : can_upload_photos ?
     if (is_admin())
     {
       $url = $conf['no_photo_yet_url'];

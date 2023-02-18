@@ -16,7 +16,12 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : Rework... manage_cat_perms block totally access to album management
+//if (!user_can('manage_cat_perm')) {
+if (!user_can('manage_albums')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
 // |                       variable initialization                         |
@@ -24,11 +29,17 @@ check_status(ACCESS_ADMINISTRATOR);
 
 $page['cat'] = $category['id'];
 
+// PVIACL TODO : Translate
+if (!user_can('manage_cat_perm') && !user_can('manage_cat_perm','category',$page['cat'])) {
+  $page['warnings'][] = str_replace('%s', "Warning", 'You cannot update this with your current privileges');
+}
+
 // +-----------------------------------------------------------------------+
 // |                           form submission                             |
 // +-----------------------------------------------------------------------+
 
-if (!empty($_POST))
+// PVIACL DONE
+if (!empty($_POST) && ( user_can('manage_cat_perm') || user_can('manage_cat_perm','category',$page['cat']))) 
 {
   check_pwg_token();
 

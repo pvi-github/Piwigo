@@ -19,7 +19,9 @@ function ws_isInvokeAllowed($res, $methodName, $params)
     return $res;
   }
 
-  if ( !is_autorize_status(ACCESS_GUEST) and
+  // PVIACL TODO : check if this ACL is correct
+  //if ( !is_autorize_status(ACCESS_GUEST) and
+  if ( !user_can('access_front') and
       strpos($methodName,'pwg.session.')!==0 )
   {
     return new PwgError(401, 'Access denied');

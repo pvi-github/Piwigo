@@ -12,7 +12,11 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
 // Check Access and exit when user status is not ok
-check_status(ACCESS_GUEST);
+// PVIACL DONE
+if (!user_can('access_front')) {
+  access_denied();
+}
+//check_status(ACCESS_GUEST);
 
 
 // access authorization check
@@ -504,6 +508,7 @@ SELECT
     );
   }
 
+  // PVIACL TODO : find what privilege is involved
   if (isset($page['category']) and is_admin() and $conf['index_edit_icon'])
   {
     $template->assign(
@@ -512,6 +517,7 @@ SELECT
       );
   }
 
+  // PVIACL TODO : find what privilege is involved
   if (is_admin() and !empty($page['items']) and $conf['index_caddie_icon'])
   {
     $template->assign(

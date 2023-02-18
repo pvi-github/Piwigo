@@ -6,6 +6,11 @@
 // | file that was distributed with this source code.                      |
 // +-----------------------------------------------------------------------+
 
+// PVIACL DONE
+if (!user_can('manage_users')) {
+  access_denied();
+}
+
 /**
  * Add users and manage users list
  */

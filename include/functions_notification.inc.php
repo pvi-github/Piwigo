@@ -333,6 +333,7 @@ function new_users($start=null, $end=null)
  * @param string $end (mysql datetime format)
  * @return boolean
  */
+// PVIACL TODO : find what privilege is involved
 function news_exists($start=null, $end=null)
 {
   return (
@@ -420,6 +421,7 @@ function news($start=null, $end=null, $exclude_img_cats=false, $add_url=false, $
     $add_url
     );
 
+  // PVIACL TODO : find what privilege is involved
   if (is_admin())
   {
     add_news_line( $news,
@@ -608,6 +610,18 @@ function get_title_recent_post_date($date_detail)
   }
 
   return $title;
+}
+
+if (!function_exists('strptime'))
+{
+  function strptime($date, $fmt)
+  {
+    if ($fmt != '%Y-%m-%d %H:%M:%S')
+      die('Invalid strptime format '.$fmt);
+    list($y,$m,$d,$H,$M,$S) = preg_split('/[-: ]/', $date);
+    $res = localtime( mktime($H,$M,$S,$m,$d,$y), true );
+    return $res;
+  }
 }
 
 ?>

@@ -398,6 +398,7 @@ function ws_session_getStatus($params, &$service)
     $res['available_sizes'] = array_keys(ImageStdParams::get_defined_type_map());
   }
 
+  // PVIACL TODO : find what privilege is involved can_upload_xxxx ?
   if (is_admin())
   {
     $res['upload_file_types'] = implode(

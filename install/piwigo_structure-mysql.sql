@@ -485,7 +485,7 @@ DROP TABLE IF EXISTS `piwigo_user_infos`;
 CREATE TABLE `piwigo_user_infos` (
   `user_id` mediumint(8) unsigned NOT NULL default '0',
   `nb_image_page` smallint(3) unsigned NOT NULL default '15',
-  `status` enum('webmaster','admin','normal','generic','guest') NOT NULL default 'guest',
+  `status` VARCHAR(20)  NOT NULL default 'guest',
   `language` varchar(50) NOT NULL default 'en_UK',
   `expand` enum('true','false') NOT NULL default 'false',
   `show_nb_comments` enum('true','false') NOT NULL default 'false',
@@ -532,3 +532,23 @@ CREATE TABLE `piwigo_users` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
 ) ENGINE=MyISAM;
+
+--
+-- Table structure for table `piwigo_status_privilege`
+--
+
+DROP TABLE IF EXISTS `piwigo_status_privilege`;
+CREATE TABLE `piwigo_status_privilege` (
+  `sp_id` int(11) NOT NULL auto_increment,
+  `status` varchar(20) NOT NULL,
+  `privilege` varchar(100) NOT NULL,
+  `context` varchar(100) NOT NULL,
+  `target_id` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`sp_id`),
+  KEY `status_privilege_status_IDX` (`status`,`privilege`),
+  KEY `status_privilege_context_IDX` (`context`),
+  KEY `status_privilege_target_id_IDX` (`target_id`),
+  UNIQUE KEY `status_privilege_UN` (`status`,`privilege`,`context`,`target_id`)
+) ENGINE=MyISAM;
+
+

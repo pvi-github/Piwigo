@@ -17,8 +17,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('notify_albums')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
 // |                       variable initialization                         |

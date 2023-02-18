@@ -18,7 +18,11 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('see_admin_help')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (!isset($_GET['output']) or 'content_only' != $_GET['output'])
 {

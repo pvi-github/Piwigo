@@ -12,7 +12,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('see_admin_help')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 $help_link = get_root_url().'admin.php?page=help&section=';
 $selected = null;

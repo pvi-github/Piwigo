@@ -12,7 +12,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL DONE
+if (!user_can('manage_themes')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 if (empty($_GET['theme']))
 {

@@ -11,7 +11,11 @@ session_cache_limiter('public');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 // Check Access and exit when user status is not ok
-check_status(ACCESS_GUEST);
+// PVIACL DONE
+if (!user_can('access_front')) {
+  access_denied();
+}
+//check_status(ACCESS_GUEST);
 
 function guess_mime_type($ext)
 {
@@ -88,6 +92,7 @@ if ( empty($element_info) )
 
 // special download action for admins
 $is_admin_download = false;
+// PVIACL TODO : find what privilege is involved
 if (is_admin() and isset($_GET['pwg_token']) and get_pwg_token() == $_GET['pwg_token'])
 {
   $is_admin_download = true;

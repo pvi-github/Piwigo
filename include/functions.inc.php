@@ -443,7 +443,20 @@ UPDATE '.USER_INFOS_TABLE.'
     pwg_query($query);
   }
 
-  if (!do_log($image_id, $image_type))
+  $do_log = $conf['log'];
+  // PVIACL TODO : find what privilege is involved and maybe rework guest/admin ...
+  if (is_admin())
+  {
+    $do_log = $conf['history_admin'];
+  }
+  if (is_a_guest())
+  {
+    $do_log = $conf['history_guest'];
+  }
+
+  $do_log = trigger_change('pwg_log_allowed', $do_log, $image_id, $image_type);
+
+  if (!$do_log)
   {
     return false;
   }
@@ -2273,6 +2286,7 @@ function get_nb_available_comments()
   if (!isset($user['nb_available_comments']))
   {
     $where = array();
+    // PVIACL TODO : find what privilege is involved : can_see_unapproved_comments
     if ( !is_admin() )
       $where[] = 'validated=\'true\'';
     $where[] = get_sql_condition_FandF

@@ -18,8 +18,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/c13y_internal.class.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
-
-check_status(ACCESS_ADMINISTRATOR);
+// PVIACL TODO : Check if privilege control is correct
+if (!user_can(null,'global')) {
+  access_denied();
+}
+//check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
 // | tabs                                                                  |
