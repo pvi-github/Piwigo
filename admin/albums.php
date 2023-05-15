@@ -29,7 +29,7 @@ if (!user_can('manage_albums')) {
 }
 //check_status(ACCESS_ADMINISTRATOR);
 
-if (isset($_GET['delete']))
+if (!empty($_POST) or isset($_GET['delete']))
 {
   check_pwg_token();
 }
