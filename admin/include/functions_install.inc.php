@@ -49,6 +49,7 @@ function execute_sqlfile($filepath, $replaced, $replacing, $dblayer)
             $query = $matches[1].' DEFAULT CHARACTER SET utf8'.';';
           }
         }
+	//error_log($query);
         pwg_query($query);
       }
       $query = '';
