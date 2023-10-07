@@ -112,6 +112,17 @@ class Template
     $this->smarty->registerPlugin('block', 'html_style', array($this, 'block_html_style') );
     $this->smarty->registerPlugin('function', 'combine_script', array($this, 'func_combine_script') );
     $this->smarty->registerPlugin('function', 'get_combined_scripts', array($this, 'func_get_combined_scripts') );
+    $this->smarty->registerPlugin('modifier', 'sprintf', 'sprintf');
+    $this->smarty->registerPlugin('modifier', 'urlencode', 'urlencode');
+    $this->smarty->registerPlugin('modifier', 'intval', 'intval');
+    $this->smarty->registerPlugin('modifier', 'file_exists', 'file_exists');
+    $this->smarty->registerPlugin('modifier', 'constant', 'constant');
+    $this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
+    $this->smarty->registerPlugin('modifier', 'htmlspecialchars', 'htmlspecialchars');
+    $this->smarty->registerPlugin('modifier', 'implode', 'implode');
+    $this->smarty->registerPlugin('modifier', 'stripslashes', 'stripslashes');
+    $this->smarty->registerPlugin('modifier', 'in_array', 'in_array');
+    $this->smarty->registerPlugin('modifier', 'ucfirst', 'ucfirst');
     $this->smarty->registerPlugin('function', 'combine_css', array($this, 'func_combine_css') );
     $this->smarty->registerPlugin('function', 'define_derivative', array($this, 'func_define_derivative') );
     $this->smarty->registerPlugin('compiler', 'get_combined_css', array($this, 'func_get_combined_css') );
