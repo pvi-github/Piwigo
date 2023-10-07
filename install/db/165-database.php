@@ -28,16 +28,17 @@ CREATE TABLE IF NOT EXISTS `'.STATUS_PRIVILEGE_TABLE.'` (
   `target_id` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`sp_id`),
   UNIQUE KEY `status_privilege_UN` (`status`,`privilege`,`context`,`target_id`),
-  KEY `status_privilege_status_IDX` (`status`,`privilege`) USING BTREE,
-  KEY `status_privilege_context_IDX` (`context`) USING BTREE,
-  KEY `status_privilege_target_id_IDX` (`target_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci
+  KEY `status_privilege_status_IDX` (`status`,`privilege`),
+  KEY `status_privilege_context_IDX` (`context`),
+  KEY `status_privilege_target_id_IDX` (`target_id`)
+) ENGINE=InnoDB AUTO_INCREMENT DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci
 ;');
 
 pwg_query("
 ALTER TABLE `".USER_INFOS_TABLE."` MODIFY COLUMN status VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'guest' NOT NULL;
 ;");
 
+$default_statuses['webmaster'][]='access_front';
 $default_statuses['webmaster'][]='add_photos';
 $default_statuses['webmaster'][]='do_maintenance';
 $default_statuses['webmaster'][]='extend_for_templates';
@@ -68,6 +69,7 @@ $default_statuses['webmaster'][]='see_admin_help';
 $default_statuses['webmaster'][]='see_history_stats';
 $default_statuses['webmaster'][]='see_user_activity';
 
+$default_statuses['admin'][]='access_front';
 $default_statuses['admin'][]='add_photos';
 $default_statuses['admin'][]='manage_albums';
 $default_statuses['admin'][]='manage_batch_global';
@@ -82,6 +84,8 @@ $default_statuses['admin'][]='rank_images';
 $default_statuses['admin'][]='see_admin_help';
 $default_statuses['admin'][]='see_history_stats';
 $default_statuses['admin'][]='see_user_activity';
+
+$default_statuses['guest'][]='access_front';
 
 foreach ( $default_statuses as $default_status => $default_privileges )
 {

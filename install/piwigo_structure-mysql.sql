@@ -528,3 +528,22 @@ CREATE TABLE `piwigo_users` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
 ) ENGINE=MyISAM;
+
+--
+-- Table structure for table `piwigo_status_privilege`
+--
+
+DROP TABLE IF EXISTS `piwigo_status_privilege`;
+CREATE TABLE `piwigo_status_privilege` (
+  `sp_id` int(11) NOT NULL auto_increment,
+  `status` varchar(100) NOT NULL,
+  `privilege` varchar(255) NOT NULL,
+  `context` varchar(100) NOT NULL,
+  `target_id` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`sp_id`),
+  UNIQUE KEY `status_privilege_UN` (`status`,`privilege`,`context`,`target_id`),
+  KEY `status_privilege_status_IDX` (`status`,`privilege`),
+  KEY `status_privilege_context_IDX` (`context`),
+  KEY `status_privilege_target_id_IDX` (`target_id`)
+) ENGINE=InnoDB;
+
