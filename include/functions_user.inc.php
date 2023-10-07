@@ -1462,6 +1462,8 @@ function user_can (
   )
 {
 
+  // DEBUG
+  error_log("Privilege : ".$privilege." / Status : ".$user_status."\n");
   if ( is_null($user_status) ) {
     $qstatus=get_user_status();
   } else {
@@ -1493,7 +1495,7 @@ function user_can (
     $query .= ';';
 
     // DEBUG
-    // print($query);
+    //error_log($query);
 
     $keys = query2array($query);
 
@@ -1510,7 +1512,7 @@ function user_can (
     }
 
     // DEBUG
-    // print_r($_GLOBALS['user_can']);
+    //error_log($_GLOBALS['user_can']);
   }
 
   if (isset($target_id))
