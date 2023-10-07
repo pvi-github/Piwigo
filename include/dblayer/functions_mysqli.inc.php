@@ -85,7 +85,10 @@ function pwg_db_check_charset()
   {
     $db_charset = DB_CHARSET;
   }
-  $mysqli->set_charset($db_charset);
+  if(method_exists($mysqli, 'set_charset'))
+  {
+    $mysqli->set_charset($db_charset);
+  }
 }
 
 /**
