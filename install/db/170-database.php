@@ -68,6 +68,8 @@ $default_statuses['webmaster'][]='rank_images';
 $default_statuses['webmaster'][]='see_admin_help';
 $default_statuses['webmaster'][]='see_history_stats';
 $default_statuses['webmaster'][]='see_user_activity';
+$default_statuses['webmaster'][]='manage_tags';
+$default_statuses['webmaster'][]='manage_theme';
 
 $default_statuses['admin'][]='access_front';
 $default_statuses['admin'][]='add_photos';
@@ -97,6 +99,10 @@ $default_statuses['editor'][]='rank_images';
 $default_statuses['editor'][]='see_admin_help';
 $default_statuses['editor'][]='see_history_stats';
 $default_statuses['editor'][]='see_user_activity';
+
+$default_statuses['normal'][]='access_front';
+
+$default_statuses['user'][]='access_front';
 
 $default_statuses['guest'][]='access_front';
 
